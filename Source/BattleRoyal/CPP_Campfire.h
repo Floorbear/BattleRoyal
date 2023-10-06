@@ -38,6 +38,14 @@ public:
 	UPROPERTY(VisibleAnywhere	,BlueprintReadOnly)
 	USceneComponent* Root;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UStaticMeshComponent* Wood_12;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TArray< UStaticMeshComponent*> Woods;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class UParticleSystemComponent* Fire;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class USphereComponent* Sphere;
+
+
 };

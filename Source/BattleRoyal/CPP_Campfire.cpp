@@ -2,6 +2,8 @@
 
 
 #include "CPP_Campfire.h"
+#include <Particles/ParticleSystemComponent.h>
+#include <Components/SphereComponent.h>
 
 // Sets default values
 ACPP_Campfire::ACPP_Campfire()
@@ -16,9 +18,19 @@ ACPP_Campfire::ACPP_Campfire()
 
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
-	Wood_12 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Wood_11"));
-	Wood_12->SetupAttachment(Root);
+	Woods.Init(NULL, 5);
+	for (int i = 0; i < Woods.Num(); i++)
+	{
+		FName NewName(FString::Printf(TEXT("Wood%d"), i));
+		Woods[i] = CreateDefaultSubobject<UStaticMeshComponent>(NewName);
+		Woods[i]->SetupAttachment(Root);
+	}
 
+	Fire = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("FIRE"));
+	Fire->SetupAttachment(Root);
+
+	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("SPHERE"));
+	Sphere->SetupAttachment(Root);
 }
 
 // Called when the game starts or when spawned
