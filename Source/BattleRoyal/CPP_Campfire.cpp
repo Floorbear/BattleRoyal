@@ -17,6 +17,7 @@ ACPP_Campfire::ACPP_Campfire()
 	//WoodMesh->SetStaticMesh(Wood_1);
 
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SetRootComponent(Root);
 
 	Woods.Init(NULL, 5);
 	for (int i = 0; i < Woods.Num(); i++)
