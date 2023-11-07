@@ -15,6 +15,7 @@ ACPP_MyCharacter::ACPP_MyCharacter()
 	CampfireSpawnPos = CreateDefaultSubobject<UArrowComponent>(TEXT("CampfireSpawnPos"));
 	CampfireSpawnPos->SetupAttachment(RootComponent);
 
+
 }
 
 // Called when the game starts or when spawned
