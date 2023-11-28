@@ -20,12 +20,26 @@ ACPP_PlayerBase::ACPP_PlayerBase()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CAMERA"));
 	Camera->SetupAttachment(SpringArm);
 
+	WeaponBack = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPONBACK"));
+	WeaponBack->SetupAttachment(GetMesh(), TEXT("WeaponBack"));
+
+	WeaponRight = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPONRIGHT"));
+	WeaponRight->SetupAttachment(GetMesh(), TEXT("WeaponRight"));
+
 }
 
 // Called when the game starts or when spawned
 void ACPP_PlayerBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//Anim 인스턴스 잡기
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	PlayerAnimInstance = Cast<UCPP_PlayerAnimInstance>(AnimInstance);
+	if (PlayerAnimInstance == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Can not find AnimInstance"));
+	}
 }
 
 // Called every frame
@@ -46,11 +60,9 @@ void ACPP_PlayerBase::MoveFront(float _Axis)
 {
 	FRotator ControllerRotator = GetController()->GetControlRotation();
 	FRotator DesireRotator = FRotator(0, ControllerRotator.Yaw, 0);
-
-
 	FVector ForwardVector = UKismetMathLibrary::GetForwardVector(DesireRotator);
-
-
+	
+	PlayerAnimInstance->SetForwardAxis(_Axis);
 
 	ForwardVector *= _Axis;
 	GetCharacterMovement()->AddInputVector(ForwardVector);
@@ -63,7 +75,7 @@ void ACPP_PlayerBase::MoveRight(float _Axis)
 
 	FVector RightVector = UKismetMathLibrary::GetRightVector(DesireRotator);
 
-
+	PlayerAnimInstance->SetRightAxis(_Axis);
 
 	RightVector *= _Axis;
 	GetCharacterMovement()->AddInputVector(RightVector);

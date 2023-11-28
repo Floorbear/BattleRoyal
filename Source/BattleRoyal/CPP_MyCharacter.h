@@ -45,4 +45,5 @@ private:
 public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category="Default")
 	TSubclassOf<AActor> SpawnToActor;
+
 };

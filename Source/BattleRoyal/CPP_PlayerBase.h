@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "CPP_PlayerAnimInstance.h"
 #include "CPP_PlayerBase.generated.h"
 
 UCLASS()
@@ -30,8 +31,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Movement)
 	void MoveFront(float _Axis);
 
-		UFUNCTION(BlueprintCallable, Category = Movement)
+	UFUNCTION(BlueprintCallable, Category = Movement)
 	void MoveRight(float _Axis);
+
 
 private:
 	//,Category = Campfire,meta	= (AllowPrivateAccess = "true")
@@ -41,6 +43,13 @@ private:
 	UPROPERTY(VisibleDefaultsOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* SpringArm;
 
-	
+	UPROPERTY(VisibleAnywhere, Category = Visual , meta = (AllowPrivateAccess = "true"))
+	class USkeletalMeshComponent* WeaponBack;
 
+	UPROPERTY(VisibleAnywhere, Category = Visual , meta = (AllowPrivateAccess = "true"))
+	class USkeletalMeshComponent* WeaponRight;
+
+	
+	// 통신 클래스 
+	TWeakObjectPtr<class UCPP_PlayerAnimInstance> PlayerAnimInstance;
 };
